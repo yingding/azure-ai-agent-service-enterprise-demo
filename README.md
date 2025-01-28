@@ -2,6 +2,8 @@
 
 This sample demonstrates how to build a streaming enterprise agent using **Azure AI Agent Service**. The agent can answer questions in real time using local HR and company policy documents, integrate external context via Bing, using gpt-4o-2024-05-13.
 
+![gif demo](asset\demo-short-3-2.gif)
+
 ## Features
 
 This demo teaches developers how to:
