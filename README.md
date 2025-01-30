@@ -2,7 +2,7 @@
 
 This sample demonstrates how to build a streaming enterprise agent using **Azure AI Agent Service**. The agent can answer questions in real time using local HR and company policy documents, integrate external context via Bing, using gpt-4o-2024-05-13.
 
-[![Watch the video](https://raw.githubusercontent.com/Azure-Samples/azure-ai-agent-service-enterprise-demo/blob/main/assets/agent-service-youtube.png)](https://youtu.be/ph-1-OIqsxY?si)
+[![YouTube](https://github.com/Azure-Samples/azure-ai-agent-service-enterprise-demo/blob/main/assets/agent-service-youtube.png?raw=true)](https://www.youtube.com/watch?v=ph-1-OIqsxY)
 
 ## Features
 
@@ -23,7 +23,7 @@ This demo teaches developers how to:
 - **Build an Interactive Gradio UI**  
   Provides a Gradio-based chat interface that prompts the agent with user questions, displays partial tool calls and final results, and makes it easy to extend or adapt the UI.
 
-![gif demo](https://raw.githubusercontent.com/Azure-Samples/azure-ai-agent-service-enterprise-demo/blob/main/assets/demo-short-3-2.gif)
+![gif demo](https://github.com/Azure-Samples/azure-ai-agent-service-enterprise-demo/blob/main/assets/demo-short-3-2.gif?raw=true)
 
 Use this demo as a reference for creating, deploying, and managing enterprise-scale AI agents with strong integration, data security, and real-time conversation capabilities.
 
