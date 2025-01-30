@@ -39,6 +39,7 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
 
    ```bash
    git clone https://github.com/Azure-Samples/azure-ai-agent-service-enterprise-demo.git
+   ```
 
 2. **Create a virtual environment** (using venv as an example):
 
@@ -48,8 +49,8 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
 
 3. **Activate** your virtual environment:
 
-    - Windows: `venv\Scripts\activate`
-    - macOS/Linux: `source venv/bin/activate`
+    - Windows: `.venv\Scripts\activate`
+    - macOS/Linux: `source .venv/bin/activate`
 
 4. **Install** the required dependencies:
 
@@ -57,9 +58,22 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
     pip install -r requirements.txt
     ```
 
-5. **Create a `.env` file** at the root of this folder to store secret keys and settings (e.g., the connection string and optional model name). For example:
+5. **Create a `.env` file** at the root of this folder to store secret keys and settings (e.g., the connection string and optional model name). You can copy the provided `.env.example` file:
+
+    - Windows (PowerShell):
+      ```powershell
+      Copy-Item -Path .env.example -Destination .env
+      ```
+    
+    - macOS/Linux:
+      ```bash
+      cp .env.example .env
+      ```
+
+    Then, open the `.env` file and update it with your configuration details.
 
     - Add your [Azure AI Foundry](https://learn.microsoft.com/en-us/azure/ai-services/agents/quickstart?pivots=programming-language-python-azure#configure-and-run-an-agent) connection string:
+
         ```plaintext
         PROJECT_CONNECTION_STRING="<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<ProjectName>"
         ```
@@ -75,8 +89,9 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
 
         ```plaintext
         BING_CONNECTION_NAME="YOUR_CONNECTION_NAME"
+        ```
 
-        In this sample, the code automatically tries to discover an .env variable named `BING_CONNECTION_NAME`. If available, you’ll see a console message like `bing > connected`. Otherwise, it gracefully proceeds without Bing.
+        > In this sample, the code automatically tries to discover an .env variable named `BING_CONNECTION_NAME`. If available, you’ll see a console message like `bing > connected`. Otherwise, it gracefully proceeds without Bing.
 
     - (Optional) **OpenWeather** API keys to enable `fetch_weather` tool:
         ```plaintext
