@@ -12,7 +12,8 @@ This demo teaches developers how to:
   Demonstrates how to connect to an Azure AI Foundry hub, either create a new agent with customized instructions (using GPT-4o or any supported model), or reuse an existing agent.
 
 - **Incorporate Vector Stores for Enterprise Data**  
-  Shows how to automatically create or reuse a vector store containing local policy files (HR, PTO, etc.), enabling retrieval-augmented generation (RAG).
+  Shows how to automatically create or reuse a vector store containing local policy files (HR, PTO, etc.), enabling retrieval-augmented generation (RAG). Supports both built-in vector store and direct Azure AI Search integration for advanced scenarios.
+
 
 - **Integrate Server-Side Tools**  
   Illustrates adding tools—like Bing search, file search, and custom Python functions—into a single `ToolSet`, and how to intercept and log each tool call.
@@ -33,7 +34,7 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
 
 - **Python 3.9+**  
 - **Visual Studio Code** with the Python and Jupyter extensions  
-- An **Azure AI Foundry** resource set up (see [Azure AI Agent Service docs](https://learn.microsoft.com/en-us/azure/ai-services/agents/))
+- An **Azure AI Foundry** resource set up (see [Azure AI Agent Service docs](https://learn.microsoft.com/azure/ai-services/agents/))
 
 ### Installation & Setup
 
@@ -74,13 +75,12 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
 
     Then, open the `.env` file and update it with your configuration details.
 
-    - Add your [Azure AI Foundry](https://learn.microsoft.com/en-us/azure/ai-services/agents/quickstart?pivots=programming-language-python-azure#configure-and-run-an-agent) connection string:
-
+    - Add your [Azure AI Foundry](https://learn.microsoft.com/azure/ai-services/agents/quickstart?pivots=programming-language-python-azure#configure-and-run-an-agent) connection string:
         ```plaintext
         PROJECT_CONNECTION_STRING="<HostName>;<AzureSubscriptionId>;<ResourceGroup>;<ProjectName>"
         ```
 
-    - Specify the [compatible model](https://learn.microsoft.com/en-us/azure/ai-services/agents/how-to/tools/bing-grounding?tabs=python&pivots=overview#setup) you want to use (e.g. GPT-4o):
+    - Specify the [compatible model](https://learn.microsoft.com/azure/ai-services/agents/how-to/tools/bing-grounding?tabs=python&pivots=overview#setup) you want to use (e.g. GPT-4o):
         ```plaintext
         MODEL_NAME="YOUR_MODEL_NAME"
         ```
@@ -130,9 +130,28 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
         - “How is MSFT stock price trending today?”
         - “Send an email summary of the HR policy.”
 
+## Azure AI Search Integration
+
+This demo supports two approaches for enterprise document retrieval:
+
+### Default Vector Store
+By default, the FileSearchTool automatically creates a vector store using Azure AI Search in standard agent setup, providing:
+- Automatic document chunking and embedding
+- Vector + keyword hybrid search
+- Zero additional configuration needed
+
+### Direct Azure AI Search Integration
+For scenarios requiring direct control over an existing search index, add these environment variables to your `.env`:
+
+```plaintext
+AZURE_SEARCH_CONNECTION_NAME="your-search-connection-name"
+AZURE_SEARCH_INDEX_NAME="your-index-name"
+```
+
 ## Resources
-- [Azure AI Agent Service Documentation](https://learn.microsoft.com/en-us/azure/ai-services/agents/overview)
-- [Grounding with Bing Search](https://learn.microsoft.com/en-us/azure/ai-services/agents/how-to/tools/bing-grounding)
+- [Azure AI Agent Service Documentation](https://learn.microsoft.com/azure/ai-services/agents/overview)
+- [Grounding with Bing Search](https://learn.microsoft.com/azure/ai-services/agents/how-to/tools/bing-grounding)
+- [Azure AI Search with Agents](https://learn.microsoft.com/azure/ai-services/agents/how-to/tools/azure-ai-search)
 - [OpenWeather API](https://openweathermap.org/api)
 
 ## Acknowledgments
