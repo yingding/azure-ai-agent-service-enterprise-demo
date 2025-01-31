@@ -2,7 +2,7 @@
 
 This sample demonstrates how to build a streaming enterprise agent using **Azure AI Agent Service**. The agent can answer questions in real time using local HR and company policy documents, integrate external context via Bing, using gpt-4o-2024-05-13.
 
-![gif demo](https://github.com/Azure-Samples/azure-ai-agent-service-enterprise-demo/blob/main/assets/demo-short-3-2.gif)
+[![YouTube](https://github.com/Azure-Samples/azure-ai-agent-service-enterprise-demo/blob/main/assets/agent-service-youtube.png?raw=true)](https://www.youtube.com/watch?v=ph-1-OIqsxY)
 
 ## Features
 
@@ -24,6 +24,8 @@ This demo teaches developers how to:
 - **Build an Interactive Gradio UI**  
   Provides a Gradio-based chat interface that prompts the agent with user questions, displays partial tool calls and final results, and makes it easy to extend or adapt the UI.
 
+![gif demo](https://github.com/Azure-Samples/azure-ai-agent-service-enterprise-demo/blob/main/assets/demo-short-3-2.gif?raw=true)
+
 Use this demo as a reference for creating, deploying, and managing enterprise-scale AI agents with strong integration, data security, and real-time conversation capabilities.
 
 ## Getting Started
@@ -40,6 +42,7 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
 
    ```bash
    git clone https://github.com/Azure-Samples/azure-ai-agent-service-enterprise-demo.git
+   ```
 
 2. **Create a virtual environment** (using venv as an example):
 
@@ -58,7 +61,19 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
     pip install -r requirements.txt
     ```
 
-5. **Create a `.env` file** at the root of this folder to store secret keys and settings (e.g., the connection string and optional model name). For example:
+5. **Create a `.env` file** at the root of this folder to store secret keys and settings (e.g., the connection string and optional model name). You can copy the provided `.env.example` file:
+
+    - Windows (PowerShell):
+      ```powershell
+      Copy-Item -Path .env.example -Destination .env
+      ```
+    
+    - macOS/Linux:
+      ```bash
+      cp .env.example .env
+      ```
+
+    Then, open the `.env` file and update it with your configuration details.
 
     - Add your [Azure AI Foundry](https://learn.microsoft.com/azure/ai-services/agents/quickstart?pivots=programming-language-python-azure#configure-and-run-an-agent) connection string:
         ```plaintext
@@ -76,8 +91,9 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
 
         ```plaintext
         BING_CONNECTION_NAME="YOUR_CONNECTION_NAME"
+        ```
 
-        In this sample, the code automatically tries to discover an .env variable named `BING_CONNECTION_NAME`. If available, you’ll see a console message like `bing > connected`. Otherwise, it gracefully proceeds without Bing.
+        > In this sample, the code automatically tries to discover an .env variable named `BING_CONNECTION_NAME`. If available, you’ll see a console message like `bing > connected`. Otherwise, it gracefully proceeds without Bing.
 
     - (Optional) **OpenWeather** API keys to enable `fetch_weather` tool:
         ```plaintext
