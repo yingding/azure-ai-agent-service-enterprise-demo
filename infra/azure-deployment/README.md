@@ -4,7 +4,7 @@ This guide provides step-by-step instructions to deploy a simple Gradio app on A
 
 ## Step 1: Run the Enterprise Streaming Agent Notebook
 
-Before deploying the web app, run the `enterprise-streaming-agent.ipynb` notebook to create the agent and vector store. Use the generated values in the `.env` file for deployment.
+Before deploying the web app, run the [enterprise-streaming-agent.ipynb](../enterprise-streaming-agent.ipynb) notebook to create the agent and vector store. Use the generated values in the `.env` file for deployment.
 
 ## Step 2: Prepare Environment Variables
 
