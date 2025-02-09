@@ -251,26 +251,51 @@ def fetch_stock_price(
 
 def send_email(recipient: str, subject: str, body: str) -> str:
     """
-    Sends an email (mock) with the specified subject and body to the recipient.
-
-    :param recipient: The email address or ID to send the message to.
-    :param subject: The email subject line.
-    :param body: The main text or HTML body of the email.
-    :return: A JSON string with a "message" or "error".
+    Sends an email to the user-instructed mailbox using an Azure Logic App HTTP trigger e.g., {"recipient":string,"subject":string,"body":string}).
+    
+    :param recipient: The email address to send the email to.
+    :param subject: The subject line of the email.
+    :param body: The content within the email body.
+    :return: A JSON string with either a "message" or an "error" key.
     """
-    try:
-        logs = [
-            f"Sending email to {recipient}...",
-            f"Subject: {subject}",
-            f"Body:\n{body}"
-        ]
-        logs.append(f"Email successfully sent to {recipient}.")
+    # Retrieve the Logic App URL from the environment.
+    logic_app_url = os.getenv("LOGIC_APP_SEND_EMAIL_URL")
+    if not logic_app_url:
         return json.dumps({
-            "logs": logs,
-            "message": f"Email sent to {recipient}."
+            "error": "Logic App endpoint URL is not configured in the environment."
+        })
+    
+    # Construct the payload to match the Logic App's expected schema.
+    payload = {
+        "recipient": recipient,
+        "subject": subject,
+        "body": body
+    }
+    
+    try:
+        # Make the POST request to the Logic App.
+        response = requests.post(logic_app_url, json=payload)
+        response.raise_for_status()  # Raise an exception for any HTTP errors.
+        
+        # Attempt to parse the JSON response from the Logic App.
+        try:
+            response_data = response.json()
+        except Exception:
+            response_data = response.text
+        
+        return json.dumps({
+            "message": f"Email sent to {recipient}.",
+            "response": response_data
+        })
+    except requests.exceptions.HTTPError as http_err:
+        return json.dumps({
+            "error": f"HTTP error occurred: {http_err}",
+            "details": response.text
         })
     except Exception as e:
-        return json.dumps({"error": f"Failed to send email: {e}"})
+        return json.dumps({
+            "error": f"An error occurred: {str(e)}"
+        })
     
 # make functions callable a callable set from enterprise-streaming-agent.ipynb
 enterprise_fns: Set[Callable[..., Any]] = {

@@ -12,11 +12,14 @@ This demo teaches developers how to:
   Demonstrates how to connect to an Azure AI Foundry hub, either create a new agent with customized instructions (using GPT-4o or any supported model), or reuse an existing agent.
 
 - **Incorporate Vector Stores for Enterprise Data**  
-  Shows how to automatically create or reuse a vector store containing local policy files (HR, PTO, etc.), enabling retrieval-augmented generation (RAG). Supports both built-in vector store and direct Azure AI Search integration for advanced scenarios.
-
+  Automatically create or reuse a vector store containing local policy files (e.g. HR, PTO, etc.) for retrieval-augmented generation (RAG).  
+  **Optional:** If the default file search tool isn’t available, the notebook automatically attempts direct Azure AI Search integration via environment variables.
 
 - **Integrate Server-Side Tools**  
   Illustrates adding tools—like Bing search, file search, and custom Python functions—into a single `ToolSet`, and how to intercept and log each tool call.
+
+- **Extend Functionality with Azure Logic Apps**  
+  Deploy a Logic App to enable the `send_email` functionality. This Logic App can be imported using the provided ARM template, and its HTTP endpoint can be integrated into the agent’s toolset.
 
 - **Stream Real-Time Agent Responses**  
   Demonstrates a streaming approach for partial message updates from the agent, seamlessly handling partial tool invocation and chunked text output.
@@ -120,38 +123,63 @@ Use this demo as a reference for creating, deploying, and managing enterprise-sc
       1. Connect to Azure AI Foundry and create or reuse an agent.
       2. Optionally upload local HR/policy files to a vector store.
       3. Add Bing integration, local file search, and custom Python functions (weather, stock lookup, etc.) to the agent’s ToolSet.
-      4. See real-time streaming queries and partial responses via your console logs and Gradio chat UI.
+      4. If no `FileSearchTool` is detected, the code uses `AZURE_SEARCH_CONNECTION_NAME` and `AZURE_SEARCH_INDEX_NAME` from your `.env` file to add the search tool.
+      5. Launch a Gradio UI that streams real-time queries and partial responses.
 
 2. **Try the Demo Chat:**
     - When you run the notebook, a local Gradio instance should launch in your cell output. You can click the localhost link to open the chat UI.
     - Ask the agent questions like:
         - “What’s my company’s remote work policy?”
-        - “Fetch the weather forecast for Seattle tomorrow.” (Requires valid OpenWeather keys)
+        - “Fetch the weather forecast for Seattle tomorrow.” _(Requires valid OpenWeather keys)_
         - “How is MSFT stock price trending today?”
-        - “Send an email summary of the HR policy.”
+        - “Send an email summary of the HR policy.” _(Triggers the Logic App if configured)_
+
+## Deploying the Send Email Logic App
+The sample includes a Logic App ARM template (`send_email_logic_app.template.json`) that you can deploy to enable the send_email functionality.
+### Steps to Deploy:
+1. The template defines a simple logic app that triggers on an HTTP request. It expects a JSON payload with `recipient`, `subject`, and `body` fields.
+2. Deploy the template using the Azure CLI or the Azure Portal.
+    - **Azure CLI:**
+        ```bash
+        az deployment group create \
+          --resource-group <your-resource-group> \
+          --template-file send_email_logic_app.template.json \
+          --parameters logicAppName=send_email_logic_app
+        ```
+    - **Azure Portal:**
+        - Go to the Azure Portal and create a new Logic App.
+        - Choose the `Blank Logic App` template.
+        - In the designer, add an HTTP trigger and an Office 365 `Send an email` action.
+        - Save the Logic App and copy the HTTP endpoint URL.
+3. Once deployed, copy the HTTP trigger URL from the Logic App’s trigger.
+4. Uncomment and set the `LOGIC_APP_SEND_EMAIL_URL` variable with you Logic App URL:
+    ```dotenv
+    LOGIC_APP_SEND_EMAIL_URL="https://<your-logic-app-endpoint>"
+    ```
 
 ## Azure AI Search Integration
 
 This demo supports two approaches for enterprise document retrieval:
 
 ### Default Vector Store
-By default, the FileSearchTool automatically creates a vector store using Azure AI Search in standard agent setup, providing:
+By default, the `FileSearchTool` automatically creates a vector store using Azure AI Search in standard agent setup, providing:
 - Automatic document chunking and embedding
 - Vector + keyword hybrid search
 - Zero additional configuration needed
 
 ### Direct Azure AI Search Integration
-For scenarios requiring direct control over an existing search index, add these environment variables to your `.env`:
+For scenarios requiring direct control over an existing search index, update these environment variables to your `.env`:
 
-```plaintext
-AZURE_SEARCH_CONNECTION_NAME="your-search-connection-name"
-AZURE_SEARCH_INDEX_NAME="your-index-name"
+```dotenv
+#AZURE_SEARCH_CONNECTION_NAME="YOUR_AZURE_SEARCH_CONNECTION_NAME"
+#AZURE_SEARCH_INDEX_NAME="YOUR_AZURE_SEARCH_INDEX_NAME"
 ```
 
 ## Resources
 - [Azure AI Agent Service Documentation](https://learn.microsoft.com/azure/ai-services/agents/overview)
 - [Grounding with Bing Search](https://learn.microsoft.com/azure/ai-services/agents/how-to/tools/bing-grounding)
 - [Azure AI Search with Agents](https://learn.microsoft.com/azure/ai-services/agents/how-to/tools/azure-ai-search)
+- [Azure Logic Apps Documentation](https://learn.microsoft.com/en-us/azure/logic-apps/)
 - [OpenWeather API](https://openweathermap.org/api)
 
 ## Acknowledgments
