@@ -182,6 +182,9 @@ For scenarios requiring direct control over an existing search index, update the
 - [Azure Logic Apps Documentation](https://learn.microsoft.com/en-us/azure/logic-apps/)
 - [OpenWeather API](https://openweathermap.org/api)
 
+## Known Issues
+Please review our [Known Issues](KNOWN_ISSUES.md) for current bugs and workarounds before reporting new problems.
+
 ## Acknowledgments
 
 - **[Gradio](https://github.com/gradio-app/gradio)**  
