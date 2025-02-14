@@ -1,5 +1,40 @@
 ## Azure AI Agent Service Enterprise Demo Changelog
 
+<a name="1.2"></a>
+# 1.2 (2025-02-14)
+
+**Features**
+
+- **Azure Web App Deployment Scripts**
+  - Added deployment scripts for deploying the Azure AI Agent Service Enterprise Demo on Azure Web App.
+  - Includes `deploy.sh`, `start.sh`, and `requirements.txt` for setting up the environment and starting the application.
+
+**Enhancements**
+
+- **Custom Python Functions**
+  - Added custom Python functions (`fetch_weather`, `send_email`, `fetch_stock_price`, `fetch_datetime`) to the `enterprise_functions.py` file.
+  - Integrated these functions with the main application.
+
+**Documentation**
+
+- **Deployment Guide**
+  - Added `README.md` with step-by-step instructions for deploying the web app.
+
+**Environment Configuration**
+
+- **.env.example**
+  - Added a template for environment variables required for deployment.
+
+**Bug Fixes**
+
+- None.
+
+**Breaking Changes**
+
+- None.
+
+---
+
 <a name="1.1"></a>
 # 1.1 (2025-02-08)
 
