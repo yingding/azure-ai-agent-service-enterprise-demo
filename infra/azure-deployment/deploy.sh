@@ -22,9 +22,9 @@ echo "Using Subscription ID: $SUBSCRIPTION_ID"
 # -------------------------------
 # Create or re-use the App Service Plan
 # -------------------------------
-app_service_plan_exists=$(az appservice plan show --name "$APP_SERVICE_PLAN" --resource-group "$RESOURCE_GROUP" --query "name" --output tsv)
-if [ -z "$app_service_plan_exists" ]; then
-  echo "Creating App Service plan: $APP_SERVICE_PLAN..."
+echo "Checking if the App Service Plan $APP_SERVICE_PLAN exists..."
+if ! az appservice plan show --name "$APP_SERVICE_PLAN" --resource-group "$RESOURCE_GROUP" &>/dev/null; then
+  echo "App Service Plan $APP_SERVICE_PLAN not found. Creating..."
   az appservice plan create --name "$APP_SERVICE_PLAN" --resource-group "$RESOURCE_GROUP" --sku B1 --is-linux --location "$LOCATION"
 else
   echo "App Service plan $APP_SERVICE_PLAN already exists."
