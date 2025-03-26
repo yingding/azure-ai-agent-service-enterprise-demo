@@ -9,3 +9,6 @@ pillow==11.1.0
 python-dotenv==1.1.0
 requests==2.32.3
 yfinance==0.2.55
+
+
+# pip install azure-ai-projects azure-identity azure-ai-inference openai

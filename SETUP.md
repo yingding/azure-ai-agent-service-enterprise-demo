@@ -38,3 +38,7 @@ Invoke-Expression "(Get-Command python).Source";
 & "python" -m pip install -r $PackageFile --no-cache-dir;
 ```
 
+## Env variable setup
+
+* Connection String for the Azure AI Project examples https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/ai/azure-ai-projects/samples
+* Python code sample of Azure AI Project connection string https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/connections/sample_connections.py
