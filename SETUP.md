@@ -42,3 +42,7 @@ Invoke-Expression "(Get-Command python).Source";
 
 * Connection String for the Azure AI Project examples https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/ai/azure-ai-projects/samples
 * Python code sample of Azure AI Project connection string https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/connections/sample_connections.py
+
+## Additional Read
+* Multi Agent Examples: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/ai/azure-ai-projects/samples/agents
+

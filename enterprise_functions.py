@@ -300,7 +300,7 @@ def send_email(recipient: str, subject: str, body: str) -> str:
 # make functions callable a callable set from enterprise-streaming-agent.ipynb
 enterprise_fns: Set[Callable[..., Any]] = {
     fetch_datetime,
-    fetch_weather,
-    fetch_stock_price,
-    send_email
+    #fetch_weather,
+    #fetch_stock_price,
+    #send_email
 }
