@@ -7,8 +7,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# def fetch_datetime(
+#     format_str: str = "%Y-%m-%d %H:%M:%S",
+#     unix_ts: int | None = None,
+#     tz_offset_seconds: int | None = None
+# ) -> str:
+
 def fetch_datetime(
-    format_str: str = "%Y-%m-%d %H:%M:%S",
     unix_ts: int | None = None,
     tz_offset_seconds: int | None = None
 ) -> str:
@@ -16,12 +21,14 @@ def fetch_datetime(
     Returns either the current UTC date/time in the given format, or if unix_ts
     is given, converts that timestamp to either UTC or local time (tz_offset_seconds).
 
-    :param format_str: The strftime format, e.g. "%Y-%m-%d %H:%M:%S".
     :param unix_ts: Optional Unix timestamp. If provided, returns that specific time.
     :param tz_offset_seconds: If provided, shift the datetime by this many seconds from UTC.
     :return: A JSON string containing the "datetime" or an "error" key/value.
     """
     try:
+        # :param format_str: The strftime format, e.g. "%Y-%m-%d %H:%M:%S".
+        format_str = "%Y-%m-%d %H:%M:%S"
+        
         if unix_ts is not None:
             dt_utc = pydatetime.fromtimestamp(unix_ts, tz=timezone.utc)
         else:
